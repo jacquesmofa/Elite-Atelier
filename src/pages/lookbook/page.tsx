@@ -15,7 +15,26 @@ export default function LookbookPage() {
   const [selectedCollection, setSelectedCollection] = useState<any>(null);
   const [cartNotification, setCartNotification] = useState(false);
   const [addedItemName, setAddedItemName] = useState('');
+  const [showFilters, setShowFilters] = useState(false);
+  const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
   const itemsPerPage = 12;
+
+  // Hero media rotation - Video first, then images
+  const heroMedia = [
+    { type: 'video', src: 'https://www.pexels.com/download/video/9510020/', duration: 10000 },
+    { type: 'image', src: 'https://readdy.ai/api/search-image?query=elegant%20fashion%20model%20in%20luxury%20black%20evening%20gown%20haute%20couture%20full%20body%20shot%20dramatic%20lighting%20sophisticated%20pose%20high-end%20designer%20dress%20professional%20editorial%20style%20premium%20quality%20simple%20background&width=1920&height=1080&seq=lookbook-hero-img1&orientation=landscape', duration: 5000 },
+    { type: 'image', src: 'https://readdy.ai/api/search-image?query=stunning%20fashion%20model%20in%20sophisticated%20white%20luxury%20dress%20haute%20couture%20elegant%20pose%20dramatic%20lighting%20high-end%20fashion%20photography%20professional%20editorial%20style%20premium%20quality%20simple%20background&width=1920&height=1080&seq=lookbook-hero-img2&orientation=landscape', duration: 5000 },
+    { type: 'image', src: 'https://readdy.ai/api/search-image?query=beautiful%20model%20in%20elegant%20gold%20evening%20gown%20luxury%20fashion%20photography%20dramatic%20lighting%20sophisticated%20atmosphere%20haute%20couture%20dress%20professional%20editorial%20style%20premium%20quality%20simple%20background&width=1920&height=1080&seq=lookbook-hero-img3&orientation=landscape', duration: 5000 },
+    { type: 'image', src: 'https://readdy.ai/api/search-image?query=fashion%20model%20in%20luxury%20designer%20outfit%20haute%20couture%20sophisticated%20pose%20dramatic%20lighting%20high-end%20fashion%20photography%20professional%20editorial%20style%20premium%20quality%20simple%20background&width=1920&height=1080&seq=lookbook-hero-img4&orientation=landscape', duration: 5000 },
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentMediaIndex((prev) => (prev + 1) % heroMedia.length);
+    }, heroMedia[currentMediaIndex].duration);
+
+    return () => clearInterval(timer);
+  }, [currentMediaIndex]);
 
   const categories = ['All', ...Array.from(new Set(lookbookCollections.map(item => item.category)))];
 
@@ -103,14 +122,34 @@ export default function LookbookPage() {
         )}
       </AnimatePresence>
 
-      {/* Hero Section */}
+      {/* Hero Section with Video & Image Rotation */}
       <div className="relative h-[70vh] overflow-hidden">
         <div className="absolute inset-0">
-          <img
-            src="https://readdy.ai/api/search-image?query=luxury%20fashion%20runway%20backstage%20elegant%20models%20preparing%20haute%20couture%20atmosphere%20professional%20photography%20premium%20quality%20sophisticated%20lighting&width=1920&height=1080&seq=lookbookhero&orientation=landscape"
-            alt="Lookbook Hero"
-            className="w-full h-full object-cover"
-          />
+          {heroMedia.map((media, index) => (
+            <div
+              key={index}
+              className={`absolute inset-0 transition-opacity duration-1000 ${
+                index === currentMediaIndex ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              {media.type === 'video' ? (
+                <video
+                  src={media.src}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <img
+                  src={media.src}
+                  alt={`Hero ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
+              )}
+            </div>
+          ))}
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/40"></div>
         </div>
         <div className="relative h-full flex flex-col items-center justify-center text-center px-8">
@@ -125,77 +164,101 @@ export default function LookbookPage() {
             <h1 className="text-white text-7xl md:text-[100px] font-bold tracking-wider mb-6">
               {i18n.language === 'fr' ? 'LOOKBOOK' : 'LOOKBOOK'}
             </h1>
-            <p className="text-white/80 text-xl font-light max-w-2xl mx-auto">
+            <p className="text-white/80 text-xl font-light max-w-2xl mx-auto mb-12">
               {i18n.language === 'fr'
                 ? 'Découvrez nos collections saisonnières et trouvez l\'inspiration pour votre prochain événement'
                 : 'Explore our seasonal collections and find inspiration for your next event'}
             </p>
+            <button
+              onClick={() => setShowFilters(!showFilters)}
+              className="px-8 py-4 bg-white text-black rounded-full text-sm font-medium hover:bg-[#D4AF37] transition-all cursor-pointer whitespace-nowrap"
+            >
+              <i className="ri-filter-3-line mr-2"></i>
+              {i18n.language === 'fr' ? 'Filtres & Recherche' : 'Filters & Search'}
+            </button>
           </motion.div>
         </div>
-      </div>
 
-      {/* Search and Filters */}
-      <div className="sticky top-24 z-40 bg-white border-b border-gray-200 py-6 px-8 shadow-sm">
-        <div className="max-w-7xl mx-auto space-y-6">
-          {/* Search Bar */}
-          <div className="flex items-center gap-4">
-            <div className="flex-1 relative">
-              <i className="ri-search-line absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg"></i>
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder={i18n.language === 'fr' ? 'Rechercher des collections, saisons...' : 'Search collections, seasons...'}
-                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-full text-sm focus:border-[#D4AF37] outline-none"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black cursor-pointer"
-                >
-                  <i className="ri-close-line text-lg"></i>
-                </button>
-              )}
-            </div>
+        {/* Media Progress Indicators */}
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-2">
+          {heroMedia.map((_, index) => (
             <button
-              onClick={clearFilters}
-              className="px-6 py-3 border border-gray-300 rounded-full text-sm font-medium hover:bg-gray-50 transition-all whitespace-nowrap cursor-pointer"
-            >
-              <i className="ri-refresh-line mr-2"></i>
-              {i18n.language === 'fr' ? 'Réinitialiser' : 'Clear All'}
-            </button>
-          </div>
-
-          {/* Category Filter */}
-          <div className="flex items-center gap-3">
-            <span className="text-sm font-medium text-gray-700">
-              {i18n.language === 'fr' ? 'Catégorie:' : 'Category:'}
-            </span>
-            <div className="flex gap-2 flex-wrap">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap cursor-pointer ${
-                    selectedCategory === cat
-                      ? 'bg-black text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Results Count */}
-          <div className="text-sm text-gray-600">
-            {i18n.language === 'fr'
-              ? `Affichage de ${paginatedItems.length} sur ${filteredItems.length} collections`
-              : `Showing ${paginatedItems.length} of ${filteredItems.length} collections`}
-          </div>
+              key={index}
+              onClick={() => setCurrentMediaIndex(index)}
+              className={`h-1 rounded-full transition-all cursor-pointer ${
+                index === currentMediaIndex
+                  ? 'w-12 bg-[#D4AF37]'
+                  : 'w-8 bg-white/30 hover:bg-white/50'
+              }`}
+            />
+          ))}
         </div>
       </div>
+
+      {/* Filters Panel - Collapsible */}
+      {showFilters && (
+        <div className="bg-white border-b border-gray-200 py-6 px-8 shadow-sm">
+          <div className="max-w-7xl mx-auto space-y-6">
+            {/* Search Bar */}
+            <div className="flex items-center gap-4">
+              <div className="flex-1 relative">
+                <i className="ri-search-line absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg"></i>
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder={i18n.language === 'fr' ? 'Rechercher des collections, saisons...' : 'Search collections, seasons...'}
+                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-full text-sm focus:border-[#D4AF37] outline-none"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black cursor-pointer"
+                  >
+                    <i className="ri-close-line text-lg"></i>
+                  </button>
+                )}
+              </div>
+              <button
+                onClick={clearFilters}
+                className="px-6 py-3 border border-gray-300 rounded-full text-sm font-medium hover:bg-gray-50 transition-all whitespace-nowrap cursor-pointer"
+              >
+                <i className="ri-refresh-line mr-2"></i>
+                {i18n.language === 'fr' ? 'Réinitialiser' : 'Clear All'}
+              </button>
+            </div>
+
+            {/* Category Filter */}
+            <div className="flex items-center gap-3">
+              <span className="text-sm font-medium text-gray-700">
+                {i18n.language === 'fr' ? 'Catégorie:' : 'Category:'}
+              </span>
+              <div className="flex gap-2 flex-wrap">
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap cursor-pointer ${
+                      selectedCategory === cat
+                        ? 'bg-black text-white'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Results Count */}
+            <div className="text-sm text-gray-600">
+              {i18n.language === 'fr'
+                ? `Affichage de ${paginatedItems.length} sur ${filteredItems.length} collections`
+                : `Showing ${paginatedItems.length} of ${filteredItems.length} collections`}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Lookbook Grid */}
       <div className="py-16 px-8">

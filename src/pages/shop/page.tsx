@@ -17,6 +17,7 @@ export default function ShopPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [showFilters, setShowFilters] = useState(false);
   const itemsPerPage = 20;
 
   useEffect(() => {
@@ -151,124 +152,135 @@ export default function ShopPage() {
                   {i18n.language === 'fr' ? 'Panier' : 'Cart'} ({cart.length})
                 </span>
               </button>
+              <button
+                onClick={() => setShowFilters(!showFilters)}
+                className="flex items-center gap-3 px-8 py-4 bg-gray-100 text-black rounded-full hover:bg-gray-200 transition-all cursor-pointer whitespace-nowrap"
+              >
+                <i className="ri-filter-3-line text-xl"></i>
+                <span className="font-medium">
+                  {i18n.language === 'fr' ? 'Filtres' : 'Filters'}
+                </span>
+              </button>
             </div>
           </motion.div>
         </div>
       </div>
 
-      {/* Advanced Search and Filters */}
-      <div className="sticky top-24 z-40 bg-white border-b border-gray-200 py-6 px-8 shadow-sm">
-        <div className="max-w-7xl mx-auto space-y-6">
-          {/* Search Bar */}
-          <div className="flex items-center gap-4">
-            <div className="flex-1 relative">
-              <i className="ri-search-line absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg"></i>
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder={i18n.language === 'fr' ? 'Rechercher des robes, catégories...' : 'Search dresses, categories...'}
-                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-full text-sm focus:border-[#D4AF37] outline-none"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black cursor-pointer"
-                >
-                  <i className="ri-close-line text-lg"></i>
-                </button>
-              )}
-            </div>
-            <button
-              onClick={clearFilters}
-              className="px-6 py-3 border border-gray-300 rounded-full text-sm font-medium hover:bg-gray-50 transition-all whitespace-nowrap cursor-pointer"
-            >
-              <i className="ri-refresh-line mr-2"></i>
-              {i18n.language === 'fr' ? 'Réinitialiser' : 'Clear All'}
-            </button>
-          </div>
-
-          {/* Filters Row */}
-          <div className="flex flex-wrap items-center justify-between gap-6">
-            {/* Category Filter */}
-            <div className="flex items-center gap-3">
-              <span className="text-sm font-medium text-gray-700">
-                {i18n.language === 'fr' ? 'Catégorie:' : 'Category:'}
-              </span>
-              <div className="flex gap-2 flex-wrap">
-                {categories.map((cat) => (
+      {/* Filters Panel - Collapsible */}
+      {showFilters && (
+        <div className="bg-white border-b border-gray-200 py-6 px-8 shadow-sm">
+          <div className="max-w-7xl mx-auto space-y-6">
+            {/* Search Bar */}
+            <div className="flex items-center gap-4">
+              <div className="flex-1 relative">
+                <i className="ri-search-line absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg"></i>
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder={i18n.language === 'fr' ? 'Rechercher des robes, catégories...' : 'Search dresses, categories...'}
+                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-full text-sm focus:border-[#D4AF37] outline-none"
+                />
+                {searchQuery && (
                   <button
-                    key={cat}
-                    onClick={() => setFilterCategory(cat)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap cursor-pointer ${
-                      filterCategory === cat
-                        ? 'bg-black text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black cursor-pointer"
                   >
-                    {cat}
+                    <i className="ri-close-line text-lg"></i>
                   </button>
-                ))}
+                )}
+              </div>
+              <button
+                onClick={clearFilters}
+                className="px-6 py-3 border border-gray-300 rounded-full text-sm font-medium hover:bg-gray-50 transition-all whitespace-nowrap cursor-pointer"
+              >
+                <i className="ri-refresh-line mr-2"></i>
+                {i18n.language === 'fr' ? 'Réinitialiser' : 'Clear All'}
+              </button>
+            </div>
+
+            {/* Filters Row */}
+            <div className="flex flex-wrap items-center justify-between gap-6">
+              {/* Category Filter */}
+              <div className="flex items-center gap-3">
+                <span className="text-sm font-medium text-gray-700">
+                  {i18n.language === 'fr' ? 'Catégorie:' : 'Category:'}
+                </span>
+                <div className="flex gap-2 flex-wrap">
+                  {categories.map((cat) => (
+                    <button
+                      key={cat}
+                      onClick={() => setFilterCategory(cat)}
+                      className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap cursor-pointer ${
+                        filterCategory === cat
+                          ? 'bg-black text-white'
+                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Sort Options */}
+              <div className="flex items-center gap-3">
+                <span className="text-sm font-medium text-gray-700">
+                  {i18n.language === 'fr' ? 'Trier par:' : 'Sort by:'}
+                </span>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium cursor-pointer focus:border-[#D4AF37] outline-none"
+                >
+                  <option value="popularity">{i18n.language === 'fr' ? 'Plus Populaire' : 'Most Popular'}</option>
+                  <option value="purchases">{i18n.language === 'fr' ? 'Plus Acheté' : 'Most Purchased'}</option>
+                  <option value="searches">{i18n.language === 'fr' ? 'Plus Recherché' : 'Most Searched'}</option>
+                  <option value="rating">{i18n.language === 'fr' ? 'Mieux Noté' : 'Highest Rated'}</option>
+                  <option value="price-high">{i18n.language === 'fr' ? 'Prix Décroissant' : 'Price: High to Low'}</option>
+                  <option value="price-low">{i18n.language === 'fr' ? 'Prix Croissant' : 'Price: Low to High'}</option>
+                  <option value="name-asc">{i18n.language === 'fr' ? 'Nom A-Z' : 'Name A-Z'}</option>
+                  <option value="name-desc">{i18n.language === 'fr' ? 'Nom Z-A' : 'Name Z-A'}</option>
+                </select>
               </div>
             </div>
 
-            {/* Sort Options */}
-            <div className="flex items-center gap-3">
+            {/* Price Range Filter */}
+            <div className="flex items-center gap-6">
               <span className="text-sm font-medium text-gray-700">
-                {i18n.language === 'fr' ? 'Trier par:' : 'Sort by:'}
+                {i18n.language === 'fr' ? 'Prix:' : 'Price:'}
               </span>
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium cursor-pointer focus:border-[#D4AF37] outline-none"
-              >
-                <option value="popularity">{i18n.language === 'fr' ? 'Plus Populaire' : 'Most Popular'}</option>
-                <option value="purchases">{i18n.language === 'fr' ? 'Plus Acheté' : 'Most Purchased'}</option>
-                <option value="searches">{i18n.language === 'fr' ? 'Plus Recherché' : 'Most Searched'}</option>
-                <option value="rating">{i18n.language === 'fr' ? 'Mieux Noté' : 'Highest Rated'}</option>
-                <option value="price-high">{i18n.language === 'fr' ? 'Prix Décroissant' : 'Price: High to Low'}</option>
-                <option value="price-low">{i18n.language === 'fr' ? 'Prix Croissant' : 'Price: Low to High'}</option>
-                <option value="name-asc">{i18n.language === 'fr' ? 'Nom A-Z' : 'Name A-Z'}</option>
-                <option value="name-desc">{i18n.language === 'fr' ? 'Nom Z-A' : 'Name Z-A'}</option>
-              </select>
+              <div className="flex items-center gap-4 flex-1 max-w-md">
+                <input
+                  type="number"
+                  value={priceRange[0]}
+                  onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
+                  className="w-24 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:border-[#D4AF37] outline-none"
+                  placeholder="Min"
+                />
+                <span className="text-gray-400">—</span>
+                <input
+                  type="number"
+                  value={priceRange[1]}
+                  onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
+                  className="w-24 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:border-[#D4AF37] outline-none"
+                  placeholder="Max"
+                />
+                <span className="text-sm text-gray-600">
+                  {i18n.language === 'fr' ? '€' : '$'}
+                </span>
+              </div>
             </div>
-          </div>
 
-          {/* Price Range Filter */}
-          <div className="flex items-center gap-6">
-            <span className="text-sm font-medium text-gray-700">
-              {i18n.language === 'fr' ? 'Prix:' : 'Price:'}
-            </span>
-            <div className="flex items-center gap-4 flex-1 max-w-md">
-              <input
-                type="number"
-                value={priceRange[0]}
-                onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
-                className="w-24 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:border-[#D4AF37] outline-none"
-                placeholder="Min"
-              />
-              <span className="text-gray-400">—</span>
-              <input
-                type="number"
-                value={priceRange[1]}
-                onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
-                className="w-24 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:border-[#D4AF37] outline-none"
-                placeholder="Max"
-              />
-              <span className="text-sm text-gray-600">
-                {i18n.language === 'fr' ? '€' : '$'}
-              </span>
+            {/* Results Count */}
+            <div className="text-sm text-gray-600">
+              {i18n.language === 'fr' 
+                ? `Affichage de ${paginatedProducts.length} sur ${filteredAndSortedProducts.length} produits`
+                : `Showing ${paginatedProducts.length} of ${filteredAndSortedProducts.length} products`}
             </div>
-          </div>
-
-          {/* Results Count */}
-          <div className="text-sm text-gray-600">
-            {i18n.language === 'fr' 
-              ? `Affichage de ${paginatedProducts.length} sur ${filteredAndSortedProducts.length} produits`
-              : `Showing ${paginatedProducts.length} of ${filteredAndSortedProducts.length} products`}
           </div>
         </div>
-      </div>
+      )}
 
       {/* Products Grid */}
       <div className="py-16 px-8">

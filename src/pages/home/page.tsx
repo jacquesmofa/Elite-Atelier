@@ -12,9 +12,9 @@ export default function HomePage() {
   const [selectedSize, setSelectedSize] = useState('');
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
 
-  // Hero media rotation
+  // Hero media rotation - Video first, then images
   const heroMedia = [
-    { type: 'video', src: 'https://v.ftcdn.net/15/68/88/09/240_F_1568880954_haGzO3ddQb7do9mvwWOe9IKNtocIcrGL_ST.mp4', duration: 7000 },
+    { type: 'video', src: 'https://www.pexels.com/download/video/9510020/', duration: 10000 },
     { type: 'image', src: 'https://readdy.ai/api/search-image?query=stunning%20African%20fashion%20model%20in%20elegant%20black%20haute%20couture%20gown%20luxury%20fashion%20photography%20dramatic%20lighting%20sophisticated%20pose%20high-end%20designer%20dress%20professional%20editorial%20style%20premium%20quality&width=1920&height=1080&seq=heroimg1&orientation=landscape', duration: 5000 },
     { type: 'image', src: 'https://readdy.ai/api/search-image?query=elegant%20fashion%20model%20in%20luxury%20gold%20evening%20gown%20full%20body%20shot%20dramatic%20lighting%20sophisticated%20atmosphere%20haute%20couture%20dress%20professional%20fashion%20photography%20premium%20quality&width=1920&height=1080&seq=heroimg2&orientation=landscape', duration: 5000 },
     { type: 'image', src: 'https://readdy.ai/api/search-image?query=beautiful%20model%20in%20sophisticated%20white%20luxury%20dress%20high-end%20fashion%20photography%20elegant%20pose%20dramatic%20lighting%20haute%20couture%20professional%20editorial%20style%20premium%20quality&width=1920&height=1080&seq=heroimg3&orientation=landscape', duration: 5000 },
