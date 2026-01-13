@@ -7,10 +7,10 @@ export const common = {
     contact: 'CONTACT',
   },
   hero: {
-    title1: 'LUXE',
-    title2: 'SANS',
-    title3: 'PRÉCÉDENT',
-    subtitle: 'L\'élégance absolue pour les personnalités d\'exception',
+    title1: 'THE ELITE',
+    title2: 'ATELIER',
+    title3: '',
+    subtitle: 'Mode de luxe sans précédent pour les personnalités exigeantes - Fondé à Toronto 2025',
     exploreCta: 'EXPLORER LA COLLECTION',
     memberCta: 'ENTRER AU CLUB',
     discover: 'DÉCOUVRIR'
@@ -80,7 +80,7 @@ export const common = {
   footer: {
     tagline1: 'Mode de luxe sans précédent',
     tagline2: 'pour les personnalités exigeantes',
-    tagline3: 'Fondé à Paris 2025',
+    tagline3: 'Fondé à Toronto 2025',
     newsletter: 'NEWSLETTER',
     emailPlaceholder: 'Votre adresse e-mail',
     privacyNote: 'En vous abonnant, vous acceptez notre Politique de Confidentialité',

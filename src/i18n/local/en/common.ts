@@ -7,10 +7,10 @@ export const common = {
     contact: 'CONTACT',
   },
   hero: {
-    title1: 'UNPRECEDENTED',
-    title2: 'LUXURY',
-    title3: 'AUTHORITY',
-    subtitle: 'Absolute elegance for exceptional personalities',
+    title1: 'THE ELITE',
+    title2: 'ATELIER',
+    title3: '',
+    subtitle: 'Unprecedented luxury fashion for discerning personalities - Est. Toronto 2025',
     exploreCta: 'EXPLORE COLLECTION',
     memberCta: 'ENTER MEMBER\'S CLUB',
     discover: 'DISCOVER'
@@ -80,7 +80,7 @@ export const common = {
   footer: {
     tagline1: 'Unprecedented luxury fashion',
     tagline2: 'for discerning personalities',
-    tagline3: 'Est. Paris 2025',
+    tagline3: 'Est. Toronto 2025',
     newsletter: 'NEWSLETTER',
     emailPlaceholder: 'Your email address',
     privacyNote: 'By subscribing, you agree to our Privacy Policy',

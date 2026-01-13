@@ -14,7 +14,7 @@ export default function HomePage() {
 
   // Hero media rotation
   const heroMedia = [
-    { type: 'video', src: 'https://readdy.ai/api/search-image?query=cinematic%20luxury%20fashion%20runway%20video%20elegant%20models%20walking%20in%20haute%20couture%20black%20evening%20gowns%20dramatic%20lighting%20professional%20fashion%20show%20catwalk%20sophisticated%20atmosphere%20high-end%20designer%20collection&width=1920&height=1080&seq=herovideo1&orientation=landscape', duration: 15000 },
+    { type: 'video', src: 'https://v.ftcdn.net/15/68/88/09/240_F_1568880954_haGzO3ddQb7do9mvwWOe9IKNtocIcrGL_ST.mp4', duration: 7000 },
     { type: 'image', src: 'https://readdy.ai/api/search-image?query=stunning%20African%20fashion%20model%20in%20elegant%20black%20haute%20couture%20gown%20luxury%20fashion%20photography%20dramatic%20lighting%20sophisticated%20pose%20high-end%20designer%20dress%20professional%20editorial%20style%20premium%20quality&width=1920&height=1080&seq=heroimg1&orientation=landscape', duration: 5000 },
     { type: 'image', src: 'https://readdy.ai/api/search-image?query=elegant%20fashion%20model%20in%20luxury%20gold%20evening%20gown%20full%20body%20shot%20dramatic%20lighting%20sophisticated%20atmosphere%20haute%20couture%20dress%20professional%20fashion%20photography%20premium%20quality&width=1920&height=1080&seq=heroimg2&orientation=landscape', duration: 5000 },
     { type: 'image', src: 'https://readdy.ai/api/search-image?query=beautiful%20model%20in%20sophisticated%20white%20luxury%20dress%20high-end%20fashion%20photography%20elegant%20pose%20dramatic%20lighting%20haute%20couture%20professional%20editorial%20style%20premium%20quality&width=1920&height=1080&seq=heroimg3&orientation=landscape', duration: 5000 },
@@ -311,7 +311,7 @@ export default function HomePage() {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+            className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8">
@@ -388,7 +388,7 @@ export default function HomePage() {
             {/* Close Button */}
             <button
               onClick={() => setSelectedProduct(null)}
-              className="absolute top-6 right-6 w-10 h-10 bg-black text-white rounded-full flex items-center justify-center hover:bg-[#D4AF37] hover:text-black transition-all cursor-pointer"
+              className="absolute top-6 right-6 w-10 h-10 bg-black text-white rounded-full flex items-center justify-center hover:bg-[#D4AF37] hover:text-black hover:rotate-90 transition-all cursor-pointer"
             >
               <i className="ri-close-line text-xl"></i>
             </button>
