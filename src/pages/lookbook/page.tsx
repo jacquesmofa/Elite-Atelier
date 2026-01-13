@@ -6,6 +6,43 @@ import Footer from '../../components/feature/Footer';
 export default function LookbookPage() {
   const { t, i18n } = useTranslation();
 
+  // Get current season based on Ontario calendar
+  const getCurrentSeason = () => {
+    const now = new Date();
+    const month = now.getMonth() + 1; // 1-12
+    const year = now.getFullYear();
+    
+    let season = '';
+    let nextSeason = '';
+    
+    // Ontario seasons:
+    // Spring: March 20 - June 20
+    // Summer: June 21 - September 22
+    // Fall: September 23 - December 20
+    // Winter: December 21 - March 19
+    
+    if (month === 12 || month <= 2) {
+      season = 'WINTER';
+      nextSeason = 'SPRING';
+    } else if (month >= 3 && month <= 5) {
+      season = 'SPRING';
+      nextSeason = 'SUMMER';
+    } else if (month >= 6 && month <= 8) {
+      season = 'SUMMER';
+      nextSeason = 'FALL';
+    } else {
+      season = 'FALL';
+      nextSeason = 'WINTER';
+    }
+    
+    // For fashion, we typically show next season's collection
+    const displayYear = nextSeason === 'SPRING' && month >= 9 ? year + 1 : year;
+    
+    return `${nextSeason} ${displayYear}`;
+  };
+
+  const currentSeason = getCurrentSeason();
+
   const looks = [
     {
       id: 1,
@@ -66,7 +103,7 @@ export default function LookbookPage() {
             transition={{ duration: 1 }}
           >
             <p className="text-[#D4AF37] text-sm tracking-[0.3em] mb-6">
-              {t('common:lookbook.season')}
+              {currentSeason}
             </p>
             <h1 className="text-white text-7xl md:text-9xl font-bold tracking-[0.15em] leading-tight mb-8">
               LOOKBOOK

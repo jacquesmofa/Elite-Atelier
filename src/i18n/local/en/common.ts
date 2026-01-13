@@ -1,10 +1,10 @@
 export const common = {
   nav: {
+    home: 'HOME',
     shop: 'SHOP',
     lookbook: 'LOOKBOOK',
     memberClub: 'MEMBER\'S CLUB',
     contact: 'CONTACT',
-    cart: 'Cart'
   },
   hero: {
     title1: 'UNPRECEDENTED',
@@ -36,10 +36,23 @@ export const common = {
     quickAdd: 'QUICK ADD'
   },
   testimonial: {
-    label: 'CLIENT TESTIMONIAL',
-    quote: 'The Elite Atelier has redefined my understanding of luxury fashion. Every piece is a masterpiece, and the personal service is simply extraordinary.',
-    author: 'Isabella Montclair',
-    title: 'Fashion Director, Paris'
+    label: 'CLIENT TESTIMONIALS',
+    sectionTitle: 'WHAT OUR CLIENTS SAY',
+    quote1: 'The Elite Atelier has redefined my understanding of luxury fashion. Every piece is a masterpiece, and the personal service is simply extraordinary.',
+    author1: 'Isabella Montclair',
+    title1: 'Fashion Director, Paris',
+    quote2: 'Unparalleled quality and attention to detail. The concierge service made my shopping experience feel truly exclusive and personalized.',
+    author2: 'Victoria Chen',
+    title2: 'CEO, Tech Innovate',
+    quote3: 'From the moment I entered the boutique, I knew I was somewhere special. The craftsmanship and elegance are beyond compare.',
+    author3: 'Sophia Laurent',
+    title3: 'International Model'
+  },
+  ceo: {
+    label: 'MEET THE VISIONARY',
+    title: 'CEO & Chief Designer',
+    bio: 'With over two decades of experience in haute couture, Emilie Josiane founded The Elite Atelier to bring unprecedented luxury and personalized service to discerning clients worldwide. Her vision combines timeless elegance with modern sophistication.',
+    connect: 'CONNECT WITH EMILIE'
   },
   memberClub: {
     title: 'MEMBER\'S CLUB',

@@ -1,10 +1,10 @@
 export const common = {
   nav: {
+    home: 'ACCUEIL',
     shop: 'BOUTIQUE',
     lookbook: 'LOOKBOOK',
     memberClub: 'CLUB MEMBRE',
     contact: 'CONTACT',
-    cart: 'Panier'
   },
   hero: {
     title1: 'LUXE',
@@ -36,10 +36,23 @@ export const common = {
     quickAdd: 'AJOUT RAPIDE'
   },
   testimonial: {
-    label: 'TÉMOIGNAGE CLIENT',
-    quote: 'L\'Elite Atelier a redéfini ma compréhension de la mode de luxe. Chaque pièce est un chef-d\'œuvre, et le service personnel est tout simplement extraordinaire.',
-    author: 'Isabella Montclair',
-    title: 'Directrice de Mode, Paris'
+    label: 'TÉMOIGNAGES CLIENTS',
+    sectionTitle: 'CE QUE DISENT NOS CLIENTS',
+    quote1: 'L\'Elite Atelier a redéfini ma compréhension de la mode de luxe. Chaque pièce est un chef-d\'œuvre, et le service personnel est tout simplement extraordinaire.',
+    author1: 'Isabella Montclair',
+    title1: 'Directrice de Mode, Paris',
+    quote2: 'Qualité et attention aux détails inégalées. Le service de conciergerie a rendu mon expérience d\'achat vraiment exclusive et personnalisée.',
+    author2: 'Victoria Chen',
+    title2: 'PDG, Tech Innovate',
+    quote3: 'Dès mon entrée dans la boutique, j\'ai su que j\'étais dans un endroit spécial. L\'artisanat et l\'élégance sont incomparables.',
+    author3: 'Sophia Laurent',
+    title3: 'Mannequin International'
+  },
+  ceo: {
+    label: 'RENCONTREZ LA VISIONNAIRE',
+    title: 'PDG et Créatrice en Chef',
+    bio: 'Avec plus de deux décennies d\'expérience en haute couture, Emilie Josiane a fondé The Elite Atelier pour offrir un luxe sans précédent et un service personnalisé à une clientèle exigeante dans le monde entier. Sa vision allie élégance intemporelle et sophistication moderne.',
+    connect: 'CONNECTEZ-VOUS AVEC EMILIE'
   },
   memberClub: {
     title: 'CLUB MEMBRE',

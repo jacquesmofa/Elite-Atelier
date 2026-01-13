@@ -56,6 +56,19 @@ export default function Header() {
             {/* Center Navigation */}
             <nav className="hidden md:flex items-center gap-1">
               <Link
+                to="/"
+                className={`px-6 py-2 text-sm font-medium tracking-widest transition-all duration-300 whitespace-nowrap ${
+                  isActive('/')
+                    ? 'text-[#D4AF37]'
+                    : isScrolled
+                    ? 'text-black hover:text-[#D4AF37]'
+                    : 'text-white hover:text-[#D4AF37]'
+                }`}
+              >
+                {t('common:nav.home')}
+              </Link>
+              <div className={`w-px h-4 ${isScrolled ? 'bg-black/20' : 'bg-white/30'}`} />
+              <Link
                 to="/shop"
                 className={`px-6 py-2 text-sm font-medium tracking-widest transition-all duration-300 whitespace-nowrap ${
                   isActive('/shop')
