@@ -22,7 +22,7 @@ Paris luxury fashion / haute couture brand: collections, personal styling, VIP m
 - Routes: `/`, `/checkout`, `/contact`, `/lookbook`, `/member-club`, `/shop`.
 
 ## Deploy
-- No deploy workflow. Add the studio FTP workflow once the host is known.
+- No deploy workflow. Add the studio FTP workflow (copy `jacquesmofa/SANKOFA/.github/workflows/deploy.yml`) once the host is known.
 
 ## Where things live
 - Pages: `src/pages/<page>/` (one folder per page, sections in `components/`). Routes: `src/router/`.
